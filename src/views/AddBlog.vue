@@ -56,7 +56,7 @@ export default {
 form {
   max-width: 420px;
   margin: 30px auto;
-  background: grey;
+  background: lightgreen;
   text-align: left;
   padding: 40px;
   border-radius: 10px;
