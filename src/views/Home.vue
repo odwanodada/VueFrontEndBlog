@@ -1,13 +1,17 @@
 <template>
   <div class="home"></div>
-  <div id="flashcard-app" class="container" v-for="blog in this.blogs" :key="blog.id">
-    <div class="card">
-      <div class="image">
-        <img :src="blog.img" />
+  <div class="wrapper" v-for="blog in this.blogs" :key="blog.id">
+    <div class="cards_wrap">
+      <div class="card_item">
+        <div class="card_inner">
+          <img :src="blog.img" />
+          <div class="role_name"><p>{{blog.title}}</p></div>
+          <div class="real_name"><p>{{blog.author}}</p></div>
+          <div class="film">
+            <p>{{blog.content}}</p>
+          </div>
+        </div>
       </div>
-      <p>Title: {{blog.title}}</p>
-      <p>Author: {{blog.author}}</p>
-      <p>Content: {{blog.content}}</p>
     </div>
   </div>
 </template>
@@ -15,125 +19,132 @@
 <script>
 export default {
   name: "Home",
-  data(){
-    return{
-      blogs:[]
-    }
-
+  data() {
+    return {
+      blogs: [],
+    };
   },
-  mounted(){
-    console.log("mounted")
-      this.fetchblogs()
-      console.log(this.blogs)
+  mounted() {
+    console.log("mounted");
+    this.fetchblogs();
+    console.log(this.blogs);
   },
-  methods:{
-    fetchblogs(){
-    fetch('http://localhost:5000/all-blogs')
-    .then(response => response.json())
-    .then(data => this.blogs = data.data)
-    console.log(this.blogs)
-  }
-  }
-  
+  methods: {
+    fetchblogs() {
+      fetch("http://localhost:5000/all-blogs")
+        .then((response) => response.json())
+        .then((data) => (this.blogs = data.data));
+      console.log(this.blogs);
+    },
+  },
 };
 </script>
 
 <style>
+
+/*the call */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
 body {
-  font-family: "Montserrat", sans-serif;
-  text-align: center;
+  background: white;
 }
 
-ul {
-  padding-left: 0;
-  display: flex;
-  flex-flow: row wrap;
-}
-
-li {
-  list-style-type: none;
-  padding: 10px 10px;
-  transition: all 0.3s ease;
-}
-
-.container {
-  max-width: 100%;
-  padding: 2em;
-}
-
-.card {
-  display: block;
-  width: 150px;
-  /* height: 175px; */
-  padding: 80px 50px;
-  background-color: #51aae5;
-  border-radius: 7px;
-  margin: 5px;
-  text-align: center;
-  line-height: 27px;
-  cursor: pointer;
-  position: relative;
+.wrapper .header {
+  width: 100%;
+  height: 50px;
+  background: #e36686;
   color: #fff;
-  font-weight: 600;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 20px;
-  -webkit-box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
-  -moz-box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
-  box-shadow: 9px 10px 22px -8px rgba(209, 193, 209, 0.5);
-  will-change: transform;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 900;
 }
 
-li:hover {
-  transform: scale(1.1);
+.cards_wrap {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-li:nth-child(-n + 3) .card {
-  background-color: #e65f51;
+.cards_wrap .card_item {
+  padding: 15px 25px;
+  width: 25%;
 }
 
-li:nth-child(2n + 1) .card {
-  background-color: #a17de9;
+.cards_wrap .card_inner {
+  background: lightgreen;
+  border-radius: 5px;
+  padding: 35px 20px;
+  min-width: 225px;
+  min-height: 315px;
+  max-height: 370px;
+  width: 100%;
 }
 
-li:nth-child(4n) .card {
-  background-color: #feca34;
+.cards_wrap .card_item img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 5px;
 }
 
-li:nth-child(5n-2) .card {
-  background-color: #51aae5;
+.cards_wrap .card_item .role_name {
+  color: black;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-li:nth-child(4n + 4) .card {
-  background-color: #feca34;
+.cards_wrap .card_item .real_name {
+  color: #b6c0c2;
+  font-size: 12px;
+  font-weight: 100;
+  margin: 5px 0 10px;
 }
 
-li:nth-child(-7n + 7) .card {
-  background-color: #e46055;
+.cards_wrap .card_item .film {
+  font-size: 14px;
+  line-height: 24px;
+  color: #7b8ca0;
 }
 
-
-.flip-enter-active {
-  transition: all 0.4s ease;
+@media screen and (max-width: 1024px) {
+  .cards_wrap .card_item {
+    width: 33%;
+  }
 }
 
-.flip-leave-active {
-  display: none;
+@media screen and (max-width: 768px) {
+  .cards_wrap .card_item {
+    width: 50%;
+  }
+  .wrapper .header {
+    font-size: 16px;
+    height: 60px;
+  }
 }
 
-.flip-enter,
-.flip-leave {
-  transform: rotateY(180deg);
-  opacity: 0;
+@media screen and (max-width: 568px) {
+  .cards_wrap .card_item {
+    width: 100%;
+  }
+  .wrapper .header {
+    font-size: 14px;
+  }
 }
-
-/* Form */
-.flashcard-form {
-  position: relative;
-}
-
-label {
-  font-weight: 400;
-  color: #333;
-  margin-right: 10px;
-}
-
 </style>
