@@ -1,43 +1,43 @@
 <template>
-  <div class="addBlog"></div>
-  <form @submit.prevent="blogAdd" method="post">
-    <label>Title:</label>
-    <input type="title" required v-model="title" />
+  <div class="reg"></div>
 
-    <label>Author:</label>
-    <input type="author" required v-model="author" />
+  <form @submit.prevent="userReg" ref="form" method="post">
+    <label>Name:</label>
+    <input type="name" required v-model="name" />
 
-    <label>Image:</label>
-    <input type="img" required v-model="img" />
+    <label>Username:</label>
+    <input type="username" required v-model="username" />
 
-    <label>Content:</label>
-    <textarea type="content" required v-model="content"> </textarea>
+    <label>Email:</label>
+    <input type="email" required v-model="email" />
 
-    <button type="submit" class="btn">Create an Blog</button>
- 
+    <label>Password:</label>
+    <input type="password" required v-model="password" />
+
+    <button type="submit" class="btn">Register</button>
   </form>
 </template>
 
 <script>
 export default {
-  name: "AddBlog",
+  name: "Registration",
   data() {
     return {
-      title: null,
-      author: null,
-      img: null,
-      content: null,
+      name: null,
+      username: null,
+      email: null,
+      password: null,
     };
   },
   methods: {
-    blogAdd() {
-      fetch("http://localhost:5000/add-blog", {
+    userReg() {
+      fetch("http://localhost:5000/add-users", {
         method: "POST",
         body: JSON.stringify({
-          title: this.title,
-          author: this.author,
-          img: this.img,
-          content: this.content,
+          name: this.name,
+          username: this.username,
+          email: this.email,
+          password: this.password,
         }),
         headers: {
           "Content-type": "application/json; charset=utf-8",
@@ -45,7 +45,7 @@ export default {
       })
         .then((response) => response.json())
         .then((json) => {
-          alert("Your Blog Successfully added")
+            alert("Successfully registered")
             this.$refs.form.reset();
           console.log(json);
         });
@@ -123,12 +123,5 @@ button {
   margin-top: 10px;
   font-size: 0.8em;
   font-weight: bold;
-}
-
-input[type="text"].textarea {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  height: 30px;
 }
 </style>

@@ -14,6 +14,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -41,7 +42,6 @@ export default {
 </script>
 
 <style>
-
 /*the call */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;900&display=swap");
 * {
@@ -51,15 +51,11 @@ export default {
   font-family: "Noto Sans JP", sans-serif;
 }
 
-body {
-  background: white;
-}
-
 .wrapper .header {
   width: 100%;
   height: 50px;
-  background: #e36686;
-  color: #fff;
+  background: e36686;
+  color: fff;
   text-align: center;
   display: flex;
   justify-content: center;
