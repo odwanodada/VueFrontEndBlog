@@ -5,11 +5,10 @@
       <div class="card_item">
         <div class="card_inner">
           <img :src="blog.img" />
-          <div class="role_name"><p>{{blog.title}}</p></div>
-          <div class="real_name"><p>{{blog.author}}</p></div>
-          <div class="film">
-            <p>{{blog.content}}</p>
-          </div>
+          <p>{{blog.title}}</p>
+          <p>{{blog.author}}</p>
+          <p>{{blog.content}}</p>
+          <i @click="blogDelete(blog.id)" class="fas fa-times"></i>
         </div>
       </div>
     </div>
@@ -32,11 +31,17 @@ export default {
   },
   methods: {
     fetchblogs() {
-      fetch("http://localhost:5000/all-blogs")
+      fetch("http://localhost:5001/all-blogs")
         .then((response) => response.json())
         .then((data) => (this.blogs = data.data));
       console.log(this.blogs);
     },
+    blogDelete(id){
+      if(confirm('Are you sure ?'))
+      fetch(`http://localhost:5001/del-blog/${id}`,{
+        method: "DELETE"
+      })
+    }
   },
 };
 </script>
@@ -58,12 +63,19 @@ export default {
   color: fff;
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 5px;
   font-weight: 900;
+}
+
+p {
+  font-size: 15px;
+  font-weight: 900;
+  color: black;
 }
 
 .cards_wrap {
@@ -75,8 +87,10 @@ export default {
 }
 
 .cards_wrap .card_item {
-  padding: 15px 25px;
+  /* padding: 15px 25px; */
   width: 25%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cards_wrap .card_inner {
@@ -104,6 +118,8 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cards_wrap .card_item .real_name {
@@ -111,12 +127,16 @@ export default {
   font-size: 12px;
   font-weight: 100;
   margin: 5px 0 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cards_wrap .card_item .film {
   font-size: 14px;
   line-height: 24px;
   color: #7b8ca0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 1024px) {

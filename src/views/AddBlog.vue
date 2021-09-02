@@ -1,6 +1,6 @@
 <template>
   <div class="addBlog"></div>
-  <form @submit.prevent="blogAdd" method="post">
+  <form @submit.prevent="blogAdd" ref="formAdd" method="POST">
     <label>Title:</label>
     <input type="title" required v-model="title" />
 
@@ -8,12 +8,15 @@
     <input type="author" required v-model="author" />
 
     <label>Image:</label>
-    <input type="img" required v-model="img" />
+    <input type="file" name="img" @change="selectedImage" required  />
 
     <label>Content:</label>
     <textarea type="content" required v-model="content"> </textarea>
 
     <button type="submit" class="btn">Create an Blog</button>
+    
+    
+   
  
   </form>
 </template>
@@ -30,8 +33,15 @@ export default {
     };
   },
   methods: {
-    blogAdd() {
-      fetch("http://localhost:5000/add-blog", {
+    blogAdd(){
+      const blob = new Blob([this.img], { type: "img"});
+      const reader = new FileReader();
+      reader.readAsDataURL(blob)
+      reader.onload = () => {
+        this.img = reader.result;
+      }
+      console.log(this.reader)
+      fetch("http://localhost:5001/add-blog", {
         method: "POST",
         body: JSON.stringify({
           title: this.title,
@@ -45,11 +55,17 @@ export default {
       })
         .then((response) => response.json())
         .then((json) => {
-          alert("Your Blog Successfully added")
-            this.$refs.form.reset();
           console.log(json);
+          // alert("Successfully Blog Added")
+          //   this.$refs.formAdd.reset();
+          //   window.location.href = "http://localhost:8080/"
         });
     },
+    selectedImage(e){
+      this.img = e.target.files[0]
+      this.$emit('img', this.img)
+      console.log(this.img)
+    }
   },
 };
 </script>

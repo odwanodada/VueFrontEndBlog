@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     userReg() {
-      fetch("http://localhost:5000/add-users", {
+      fetch("http://localhost:5001/add-users", {
         method: "POST",
         body: JSON.stringify({
           name: this.name,
@@ -47,6 +47,7 @@ export default {
         .then((json) => {
             alert("Successfully registered")
             this.$refs.form.reset();
+            window.location.href = "http://localhost:8080/"
           console.log(json);
         });
     },
