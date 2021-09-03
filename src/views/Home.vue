@@ -78,6 +78,11 @@ p {
   color: black;
 }
 
+i{
+    color: blue;
+    font-size: 20px;
+}
+
 .cards_wrap {
   padding: 20px;
   width: 100%;
@@ -88,9 +93,10 @@ p {
 
 .cards_wrap .card_item {
   /* padding: 15px 25px; */
-  width: 25%;
-  display: flex;
-  flex-wrap: wrap;
+   display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .cards_wrap .card_inner {
@@ -163,4 +169,22 @@ p {
     font-size: 14px;
   }
 }
+
+.wrapper{
+    background: whitesmoke;
+    margin: 7px;
+    padding: 12px 22px;
+    cursor: pointer;
+}
+
+.wrapper .reminder{
+    border-left: 6px solid green;
+}
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 </style>
